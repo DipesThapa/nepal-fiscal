@@ -87,8 +87,11 @@ describe("differential: @nakarmi23/bikram-sambat", () => {
     for (const bs of sampleDates()) {
       const ours = bsToAd(bs);
       const iso = `${bs.year}-${String(bs.month).padStart(2, "0")}-${String(bs.day).padStart(2, "0")}`;
-      const g = new Date(Date.parse(BikramSambat.parse(iso).adDate));
-      const theirs = { year: g.getUTCFullYear(), month: g.getUTCMonth() + 1, day: g.getUTCDate() };
+      // adDate is a Date at local midnight, so its calendar day has to be read
+      // from the local fields. Reading UTC fields shifts every date a day back
+      // on any host east or west of UTC — green in CI, red on a laptop.
+      const g = new Date(BikramSambat.parse(iso).adDate);
+      const theirs = { year: g.getFullYear(), month: g.getMonth() + 1, day: g.getDate() };
       if (ours.year !== theirs.year || ours.month !== theirs.month || ours.day !== theirs.day) {
         mismatches.push(
           `BS ${bs.year}-${bs.month}-${bs.day}: ours ${JSON.stringify(ours)}, theirs ${JSON.stringify(theirs)}`,
