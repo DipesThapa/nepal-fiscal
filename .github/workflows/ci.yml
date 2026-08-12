@@ -12,8 +12,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # engines says >=18, so 18 is tested rather than assumed.
-        node: ["18", "20", "22"]
+        # engines says >=20, so the oldest supported runtime is tested rather
+        # than assumed, along with the newer lines consumers will actually be on.
+        node: ["20", "22", "24"]
         # The timezone axis is the one that matters for this library. A BS date
         # bug can be invisible in UTC and wrong everywhere else — that is
         # exactly how the oracle bug in 7af9342 survived. Kathmandu is where it

@@ -2,7 +2,7 @@
 
 Fiscal primitives for Nepali billing software: Bikram Sambat dates, fiscal years, exact VAT arithmetic, PAN validation and CBMS invoice payloads.
 
-Zero runtime dependencies. No floating-point money. TypeScript, ESM, Node 18+.
+Zero runtime dependencies. No floating-point money. TypeScript, ESM, Node 20+.
 
 ```bash
 npm install nepal-fiscal
