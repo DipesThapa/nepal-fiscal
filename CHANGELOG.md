@@ -13,6 +13,31 @@ published tarball, which contains only `dist/`, `README.md` and `LICENSE`.
 
 ## [Unreleased]
 
+_Nothing yet._
+
+## [0.2.1] — 2026-08-12
+
+No functional change. Documentation and packaging only; the compiled output in
+`dist/` is byte-identical to `0.2.0`.
+
+### Added
+
+- `CHANGELOG.md` is now included in the published package.
+
+### Documentation
+
+- The README explains **why** BS 2084, 2085, 2086 and 2090 cannot be settled
+  from any source today. Month lengths are determined by the
+  [Nepal Panchanga Nirnayak Bikash Samiti](https://npns.gov.np/), which
+  publishes year by year and has reached BS 2083 — the current year. The three
+  reference implementations disagree because all three are extrapolating, not
+  because one holds the answer.
+
+  Previously the README advised checking provisional years against the official
+  calendar, which for these years does not yet exist. The contributing ask is
+  retimed to match: cite the official patro *when the committee publishes* a
+  given year.
+
 ### Internal
 
 - The generated Bikram Sambat table is now guarded against silent drift. The
@@ -25,11 +50,6 @@ published tarball, which contains only `dist/`, `README.md` and `LICENSE`.
 - Fixed the epoch check in the calendar generator, which read UTC fields from
   `Date`s at local midnight and so threw `epoch disagreement` on any host not
   on UTC. `npm run calendar` only ever worked in UTC.
-- CI runs the suite on Node 20, 22 and 24 against `UTC`, `Asia/Kathmandu` and
-  `America/Los_Angeles`. The timezone axis is deliberate: a date bug in this
-  library can be invisible in UTC and wrong everywhere else.
-- Releases publish from a version tag via npm trusted publishing (OIDC), so no
-  long-lived token exists on any machine or in repository secrets.
 
 ## [0.2.0] — 2026-08-12
 
@@ -44,6 +64,12 @@ published tarball, which contains only `dist/`, `README.md` and `LICENSE`.
   compatibility. This is a minor rather than a patch because it changes who can
   install cleanly.
 
+### Internal
+
+- CI runs the suite on Node 20, 22 and 24 against `UTC`, `Asia/Kathmandu` and
+  `America/Los_Angeles`. The timezone axis is deliberate: a date bug in this
+  library can be invisible in UTC and wrong everywhere else.
+
 ## [0.1.2] — 2026-08-12
 
 No functional change. Identical in content to `0.1.0`; released to verify the
@@ -53,6 +79,11 @@ still available.
 `0.1.1` was tagged but **never published** — the release workflow failed before
 reaching the publish step, so the version does not exist on npm. The tag has
 since been removed. Nothing was ever installable as `0.1.1`.
+
+### Internal
+
+- Releases now publish from a version tag via npm trusted publishing (OIDC), so
+  no long-lived token exists on any machine or in repository secrets.
 
 ## [0.1.0] — 2026-08-12
 
@@ -99,7 +130,8 @@ Initial release.
   authoritative counter belongs in your database behind a unique constraint on
   `(fiscal_year, sequence)`.
 
-[Unreleased]: https://github.com/DipesThapa/nepal-fiscal/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/DipesThapa/nepal-fiscal/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/DipesThapa/nepal-fiscal/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/DipesThapa/nepal-fiscal/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/DipesThapa/nepal-fiscal/releases/tag/v0.1.2
 <!-- 0.1.0 was published by hand before the tag-triggered pipeline existed, so
