@@ -1,0 +1,65 @@
+name: release
+
+# Publishes to npm when a version tag is pushed:
+#
+#   npm version patch   # bumps package.json, commits, creates the tag
+#   git push --follow-tags
+#
+# Authentication is npm trusted publishing (OIDC) — no NPM_TOKEN secret is
+# stored anywhere. This requires a one-time setup on npmjs.com: the package's
+# settings page, Trusted Publisher, GitHub Actions, repo DipesThapa/nepal-fiscal,
+# workflow file release.yml. The workflow filename has to match exactly.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write # required for trusted publishing and provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      # Node 20 ships npm 10, which predates trusted publishing.
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
+      - run: npm ci
+
+      # A tag that disagrees with package.json publishes a version nobody can
+      # find from the git history. Cheaper to catch here than to unpublish.
+      - name: Verify tag matches package.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::tag v$tag does not match package.json version $pkg"
+            exit 1
+          fi
+          echo "publishing $pkg"
+
+      - run: npm run typecheck
+
+      # Deliberately not UTC. The runner defaults to UTC, which is the one
+      # timezone that hides date bugs in a Bikram Sambat library — the oracle
+      # test passed in UTC and failed everywhere else. Run it where it is used.
+      - name: Test (Nepal time)
+        run: npm test
+        env:
+          TZ: Asia/Kathmandu
+
+      - run: npm run build
+
+      - name: Publish
+        run: npm publish --provenance --access public
