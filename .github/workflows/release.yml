@@ -31,9 +31,12 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
 
-      # Node 20 ships npm 10, which predates trusted publishing.
+      # Node 20 ships npm 10, which predates trusted publishing (needs 11.5.1+).
+      # Pinned to the 11 line rather than @latest: npm 12 requires node 22.22+
+      # and broke this job the first time it ran. An unpinned upgrade makes the
+      # release depend on whatever npm shipped that morning.
       - name: Upgrade npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - run: npm ci
 
