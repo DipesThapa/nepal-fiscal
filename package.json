@@ -1,0 +1,64 @@
+{
+  "name": "nepal-fiscal",
+  "version": "0.1.0",
+  "description": "Nepali fiscal primitives for billing software: Bikram Sambat dates, fiscal years, exact VAT arithmetic, PAN/VAT validation and IRD CBMS payloads. Zero dependencies, no floating-point money.",
+  "keywords": [
+    "nepal",
+    "bikram-sambat",
+    "nepali-date",
+    "fiscal-year",
+    "vat",
+    "ird",
+    "cbms",
+    "e-billing",
+    "invoice",
+    "accounting"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build",
+    "calendar": "node scripts/generate-calendar.mjs"
+  },
+  "devDependencies": {
+    "@nakarmi23/bikram-sambat": "^1.4.9",
+    "@types/node": "^22.15.3",
+    "bikram-sambat": "^1.8.1",
+    "nepali-date-converter": "^3.4.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Dipesh Thapa",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DipesThapa/nepal-fiscal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DipesThapa/nepal-fiscal/issues"
+  },
+  "homepage": "https://github.com/DipesThapa/nepal-fiscal#readme"
+}
