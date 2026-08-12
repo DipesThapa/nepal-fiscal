@@ -45,7 +45,17 @@ isProvisionalYear(2085); // true  — two of three; verify before relying on it
 bsToAd({ year: 2085, month: 2, day: 15 }); // still converts, does not throw
 ```
 
-Provisional years convert normally rather than throwing, because refusing would be worse than a documented caveat. But if you are computing a statutory deadline that lands in one of them, check it against the official Nepali calendar. This library will tell you when to be careful; it will not pretend to certainty it does not have.
+Provisional years convert normally rather than throwing, because refusing would be worse than a documented caveat. This library will tell you when to be careful; it will not pretend to certainty it does not have.
+
+### Why those years cannot simply be looked up
+
+There is a reason the sources disagree, and it is worth stating, because the obvious advice — *check it against the official calendar* — does not yet work for these years.
+
+Bikram Sambat month lengths are not computed from a rule. They are **determined** by the [नेपाल पञ्चाङ्ग निर्णायक विकास समिति](https://npns.gov.np/), the government committee that publishes the official patro. As of Shrawan 2083 (August 2026), that committee has published through **BS 2083** — the current year. There is no official patro for 2084, 2085, 2086 or 2090 to consult.
+
+So the three reference implementations do not disagree because two are careless and one is right. They disagree because **all three are extrapolating a calendar no authority has fixed yet**. No source can settle these years today; the committee publishes year by year, so 2084 resolves around AD 2027, 2085 around 2028, and 2090 not until 2033.
+
+If you are computing a statutory deadline that falls in a provisional year, that is the situation to plan around: not a gap in this library's research, but a date the authority itself has not yet declared.
 
 Supported range: **BS 2000 – 2090** (AD 1943-04-14 onward). Outside it, conversion throws rather than extrapolating.
 
@@ -218,7 +228,11 @@ All errors extend `NepalFiscalError`.
 
 ## Contributing
 
-Corrections to the calendar data are especially welcome, and the bar is evidence: a citation to the official Nepali calendar (patro) for the year in question beats another library agreeing with you. If you can settle BS 2084, 2085, 2086 or 2090 from an authoritative source, that closes the most useful open question here.
+Corrections to the calendar data are especially welcome, and the bar is evidence: a citation to the official patro for the year in question beats another library agreeing with you. Most Nepali calendar sites derive from the same handful of datasets these reference implementations do, so three of them agreeing is one source counted three times.
+
+The provisional years — 2084, 2085, 2086, 2090 — cannot be settled from any source today, for the reason given [above](#why-those-years-cannot-simply-be-looked-up): the committee has not published them. The useful contribution is therefore **timed**: when the committee publishes the patro for one of those years, open an issue with the citation. That is the moment the flag can come off, and it is easy to miss.
+
+`npm run calendar` regenerates the table from the reference implementations, and a test asserts the committed file still matches what that produces — so an upstream revision to a disputed year shows up as a failing build rather than a silent change.
 
 Bug reports that come with a failing test are the fastest route to a fix.
 
