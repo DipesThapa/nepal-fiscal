@@ -1,6 +1,6 @@
 {
   "name": "nepal-fiscal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nepali fiscal primitives for billing software: Bikram Sambat dates, fiscal years, exact VAT arithmetic, PAN/VAT validation and IRD CBMS payloads. Zero dependencies, no floating-point money.",
   "keywords": [
     "nepal",
