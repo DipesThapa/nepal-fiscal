@@ -1,5 +1,11 @@
 # nepal-fiscal
 
+[![npm](https://img.shields.io/npm/v/nepal-fiscal)](https://www.npmjs.com/package/nepal-fiscal)
+[![ci](https://github.com/DipesThapa/nepal-fiscal/actions/workflows/ci.yml/badge.svg)](https://github.com/DipesThapa/nepal-fiscal/actions/workflows/ci.yml)
+[![node](https://img.shields.io/node/v/nepal-fiscal)](https://nodejs.org)
+[![dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://www.npmjs.com/package/nepal-fiscal?activeTab=dependencies)
+[![licence](https://img.shields.io/npm/l/nepal-fiscal)](./LICENSE)
+
 Fiscal primitives for Nepali billing software: Bikram Sambat dates, fiscal years, exact VAT arithmetic, PAN validation and CBMS invoice payloads.
 
 Zero runtime dependencies. No floating-point money. TypeScript, ESM, Node 20+.
