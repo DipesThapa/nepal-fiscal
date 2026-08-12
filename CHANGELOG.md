@@ -9,11 +9,24 @@ supports — see `0.2.0`.
 
 Entries describe what changed for someone **installing this package**. Changes
 to CI, tests and tooling are listed under *Internal*, and do not affect the
-published tarball, which contains only `dist/`, `README.md` and `LICENSE`.
+published tarball, which contains only `dist/`, `README.md`, `LICENSE` and this
+file.
 
 ## [Unreleased]
 
-_Nothing yet._
+### Internal
+
+- The package now tests its own claims: no runtime, peer or optional
+  dependencies, a `files` allowlist limited to `dist`, the README, the licence
+  and this changelog, and `engines` matching the range CI covers. Zero
+  dependencies is asserted in the README, the package description and a badge —
+  the badge is static, so without this it would keep saying zero after someone
+  ran `npm install --save`.
+
+### Documentation
+
+- README carries npm version, CI status, minimum node, dependency count and
+  licence badges.
 
 ## [0.2.1] — 2026-08-12
 

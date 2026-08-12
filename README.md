@@ -203,10 +203,11 @@ Stated plainly, because a library that overstates its scope costs you more than 
 npm test
 ```
 
-128 tests, including:
+132 tests, including:
 
 - **Every day in the supported range** converted BS → AD → BS, asserting the Gregorian dates advance by exactly one day with no gap or repeat — 33,000+ dates. A uniformly wrong table would pass a round-trip test; this catches a bad month length.
 - A **drift guard** asserting the committed calendar table is exactly what the generator produces from the pinned sources — so a hand-edit, a botched regeneration, or an upstream revision to a disputed year cannot pass unnoticed.
+- A check that the package still makes good on its own claims: no runtime, peer or optional dependencies, and a `files` allowlist that keeps `src/` and `test/` out of the tarball. The zero-dependency promise is made in three places and enforced in one.
 - **Differential tests against all three reference implementations**, on month lengths and on sampled dates across every unanimous year, plus a continuous 44-year AD sweep.
 - A test that **fails loudly if the sources ever stop disagreeing** about BS 2084–2086, so the provisional flags get revisited rather than going stale.
 - Exhaustive VAT reconciliation: for every gross amount up to Rs 200, net + VAT is asserted to equal the gross exactly.
